@@ -1,0 +1,33 @@
+version: '3'
+
+networks:
+  esquadrao21:
+
+services:
+  project:
+    build:
+      context: "./development/bin/php"
+    container_name: "project"
+    #environment:
+      #REDIS_HOST: redis
+    networks:
+      - esquadrao21
+    ports:
+      - "127.0.0.1:9090:80"
+    volumes:
+      - .:/var/www/html
+    
+  mysql:
+    build:
+      context: "./development/bin/mysql"
+    container_name: "mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+    restart: on-failure
+    ports:
+      - "127.0.0.1:3307:3306"
+    networks:
+      - esquadrao21
+    volumes:
+      - ./development/config/initdb:/docker-entrypoint-initdb.d
+      - ./development/mysql:/var/lib/mysql

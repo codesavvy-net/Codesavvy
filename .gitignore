@@ -1,0 +1,5 @@
+cache/*
+development/mysql
+public/node_modules
+vendor
+phinx.php
