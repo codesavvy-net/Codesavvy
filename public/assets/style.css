@@ -1,0 +1,19 @@
+.header {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  border-bottom: 1px black solid;
+}
+
+.content p {
+  text-align: center;
+  font-size: 35px;
+  margin: 80px;
+}
+
+.footer {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  border-top: 1px black solid;
+}

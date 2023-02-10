@@ -1,0 +1,7 @@
+*.js
+*.htm*
+*.css
+package.json
+
+*.php
+composer.json
