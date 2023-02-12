@@ -3,3 +3,4 @@ development/mysql
 public/node_modules
 vendor
 .env
+.phpunit.*
