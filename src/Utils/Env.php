@@ -6,7 +6,12 @@ use Symfony\Component\Dotenv\Dotenv;
 
 class Env
 {
-  static function load()
+
+  /**
+   * Ler arquivo .dot e adicionar variáveis de ambientes
+   * @return void
+   */
+  static function load(): void
   {
     $file_dot_env = __DIR__ . DS . '..' . DS . '..' . DS . '.env';
 

@@ -8,8 +8,14 @@ use Slim\Psr7\Response;
 
 class About extends Pages
 {
+  /**
+   * Retorna o conteúdo de uma view
+   * @return Response
+   */
   function action(): Response
   {
+
+    //Renderiza
     return $this->view->render($this->response, 'about.html');
   }
 }
