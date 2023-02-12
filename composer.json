@@ -7,13 +7,24 @@
             "Esquadrao21\\Squad21\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "tests\\": "tests/"
+        }
+    },
     "require-dev": {
-        "robmorgan/phinx": "^0.13.4"
+        "phpunit/phpunit": "^10.0"
     },
     "require": {
+        "robmorgan/phinx": "^0.13.4",
         "slim/slim": "^4.11",
         "slim/psr7": "^1.6",
         "slim/twig-view": "^3.3",
         "symfony/dotenv": "^6.2"
+    },
+    "scripts": {
+        "tests": "vendor/bin/phpunit --testsuite=tests",
+        "createTable": "vendor/bin/phinx create",
+        "migrate": "vendor/bin/phinx migrate"
     }
 }
