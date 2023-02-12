@@ -1,12 +1,12 @@
 <?php
 
-namespace Esquadrao21\Squad21\Controllers;
+namespace Esquadrao21\Squad21\Utils;
 
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Slim\Views\Twig;
 
-abstract class Controller
+abstract class Pages
 {
 
   protected $request;
