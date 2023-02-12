@@ -1,5 +1,6 @@
 {
     "name": "esquadrao21/squad21",
+    "license": "proprietary",
     "description": "Descrição",
     "type": "project",
     "autoload": {
