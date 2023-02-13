@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block header %}
+<title>Squad - Entrar</title>
+<meta name="title" content="Squad - Entrar">
+<meta name="description" content="Acesso ao Squad21">
+{% endblock %}
+
+{% block body %}
+
+<form action="entrar" method="post">
+
+  Login:
+  <input name="login" type="text" /> <br />
+  Senha:
+  <input name="password" type="password" /><br />
+  <input name="{{token.nameKey}}" type="hidden" value="{{token.name}}" />
+  <input name="{{token.valueKey}}" type="hidden" value="{{token.value}}" />
+  <input type="submit" value="Login" />
+  {% if login %}<p>Usuário ou Senha incorretos!</p>{% endif %}
+</form>
+
+{% endblock %}
