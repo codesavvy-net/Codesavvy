@@ -8,8 +8,6 @@ services:
     build:
       context: "./development/bin/php"
     container_name: "project"
-    #environment:
-      #REDIS_HOST: redis
     networks:
       - esquadrao21
     ports:
