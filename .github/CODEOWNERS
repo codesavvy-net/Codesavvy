@@ -1,7 +1,9 @@
-*.js
-*.htm*
-*.css
-package.json
+*.js @brunogcsousa @BrunoRaphael2002 @HexMagnus
+*.htm* @brunogcsousa @BrunoRaphael2002 @HexMagnus
+*.css @brunogcsousa @BrunoRaphael2002 @HexMagnus
+package.json @brunogcsousa @BrunoRaphael2002 @HexMagnus
 
-*.php
-composer.json
+*.php @nicolahsss @MatheusBrandao525
+composer.json @nicolahsss @MatheusBrandao525
+
+.github @BrunoRaphael2002 @HexMagnus @MatheusBrandao525 @nicolahsss
