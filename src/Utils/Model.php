@@ -89,7 +89,7 @@ class Model
   function deleteColumn(string $column, string $value):bool
   {
       //Essa linha usa o objeto de $conn conexão para preparar uma consulta SQL para deletar uma linha da tabela self::$table
-     $delete = self::$conn->prepare("DELETE '{$column}' FROM ".self::$table." WHERE {$value} = :value");
+     $delete = self::$conn->prepare("DELETE FROM table WHERE column = :value");
      $delete->bindParam(':value', $value);
 
      //// O método execute é usado para executar a instrução SQL.
