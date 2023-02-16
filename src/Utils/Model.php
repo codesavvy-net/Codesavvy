@@ -121,8 +121,41 @@ class Model
       return (bool) $delete->rowCount();
    }
 
-   //Not Implemented
-   public function insert(): void
+   /**
+    * Este é um método que adiciona uma linha específica na tabela. 
+    * @return bool
+    */
+   public function insert(): array
    {
+      $this->uuid = UUID::v4(); // Gera um UUID v4 para o objeto atual
+
+      $sql = "INSERT INTO {$this->table} "; // Monta a query SQL para inserção de dados na tabela correspondente
+      $columns = null; // Inicializa a string de colunas com null
+      $interrogation = null; // Inicializa a string de interrogações com null
+      $values = []; // Inicializa o array de valores com um array vazio
+
+      // Para cada propriedade do objeto atual
+      foreach (get_object_vars($this) as $key => $item) {
+         // Se a propriedade não for 'table' nem 'conn'
+         if (!($key == 'table' || $key == 'conn')) {
+            // Adiciona o nome da coluna na string de colunas
+            $columns .= "`{$key}`,";
+            // Adiciona uma interrogação na string de interrogações
+            $interrogation .= "?,";
+            // Adiciona o valor da propriedade no array de valores
+            array_push($values, $item);
+         }
+      }
+
+      // Monta a string de consulta SQL com as colunas e interrogações geradas
+      $sql .= "(" . substr($columns, 0, -1) . ") VALUES (" . substr($interrogation, 0, -1) . ")";
+
+      // Prepara a query para inserção com os valores gerados
+      $insert = $this->conn->prepare($sql);
+
+      // Executa a query com os valores
+      $insert->execute($values);
+
+      return $this->getColumn('uuid', $this->uuid);
    }
 }
