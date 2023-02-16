@@ -10,7 +10,7 @@ use Slim\Psr7\Response;
 class SignIn extends Pages
 {
 
-  private $users;
+  private Users $users;
 
   /**
    * Retorna o conteúdo de uma view
@@ -29,15 +29,15 @@ class SignIn extends Pages
       exit;
     }
 
-    return $this->view();
+    return $this->view($login ?? false);
   }
 
   private function login(array $body): bool
   {
-    return !$this->users->login($body['login'], $body['password']);
+    return !$this->users->signIn($body['login'], $body['password']);
   }
 
-  private function view(): Response
+  private function view(bool $login): Response
   {
     $csrf = $GLOBALS['csrf'];
     $nameKey = $csrf->getTokenNameKey();
