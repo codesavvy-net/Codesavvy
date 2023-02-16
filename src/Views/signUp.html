@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block header %}
+<title>Squad - Registrar</title>
+<meta name="title" content="Squad - Registrar-se">
+<meta name="description" content="Acesso ao Squad21">
+{% endblock %}
+
+{% block body %}
+
+<form action="registrar" method="post">
+
+  Nome:
+  <input name="name" type="text" value="Nicola Serafim" /> <br />
+  Usuário:
+  <input name="username" type="text" value="nicolahsss" /> <br />
+  E-mail:
+  <input name="email" type="email" value="nicola@seraf.im" /> <br />
+  Senha:
+  <input name="password" type="password" value="Abcd12347" /><br />
+  Tipo de Conta: <br />
+  <input name="type" type="radio" value=4 /> Usuário <br />
+  <input name="type" type="radio" value=3 checked /> Dev <br />
+  <input name="{{token.nameKey}}" type="hidden" value="{{token.name}}" />
+  <input name="{{token.valueKey}}" type="hidden" value="{{token.value}}" />
+  <input type="submit" value="Cadastrar" />
+  <a href="/entrar">Voltar ao Login</a>
+  {% if return %}<p>{{return}}</p>{% endif %}
+</form>
+
+{% endblock %}

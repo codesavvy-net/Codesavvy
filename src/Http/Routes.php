@@ -12,3 +12,5 @@ use Slim\Interfaces\RouteCollectorProxyInterface;
 $app->get('[/]', Home::class);
 
 $app->map(['GET', 'POST'], '/entrar[/]', SignIn::class);
+
+$app->map(['GET', 'POST'], '/registrar[/]', SignUp::class);
