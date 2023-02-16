@@ -50,17 +50,20 @@ class Model
     * @param $value string passar o valor especifico que deseja buscar
     * @return ?array
     */
-   protected function getColumn(string $column, string $value): void
+   protected function getColumn(string $column, string $value): bool
    {
       $busca = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE {$column} = :value");
       $busca->bindParam(':value', $value);
       $busca->execute();
 
-      if ($busca->rowCount()) {
+      $row = $busca->rowCount();
+      if ($row) {
          $res = $busca->fetch(\PDO::FETCH_ASSOC);
          foreach ($res as $key => $item)
             $this->{$key} = $item;
       }
+
+      return (bool) $row;
    }
 
    /**
@@ -125,7 +128,7 @@ class Model
     * Este é um método que adiciona uma linha específica na tabela. 
     * @return bool
     */
-   public function insert(): array
+   public function insert(): ?bool
    {
       $this->uuid = UUID::v4(); // Gera um UUID v4 para o objeto atual
 
@@ -156,6 +159,7 @@ class Model
       // Executa a query com os valores
       $insert->execute($values);
 
+      // Puxar dados da tabela
       return $this->getColumn('uuid', $this->uuid);
    }
 }

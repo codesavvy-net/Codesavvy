@@ -59,7 +59,7 @@ class Users extends Model
   protected string $password;
 
   protected string $created_at;
-  protected string $updated_at;
+  protected ?string $updated_at;
 
   //Provisório deve ser removido, quando começar a construção da pagina
   public function __construct()

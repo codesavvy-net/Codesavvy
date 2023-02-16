@@ -23,7 +23,7 @@ class Home extends Pages
     return $this->view->render($this->response, 'home.html', [
 
       //Puxa nome do usuário para View
-      'name' => $users->name
+      'name' => $_SESSION['name'] ?? null
     ]);
   }
 }
