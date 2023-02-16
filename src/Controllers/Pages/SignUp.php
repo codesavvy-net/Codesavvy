@@ -23,6 +23,11 @@ class SignUp extends Pages
     //Instância de usuário
     $this->users = new Users();
 
+    if (isset($_SESSION['uuid'])) {
+      header("Location: /perfil");
+      exit;
+    }
+
     $body = $this->request->getParsedBody();
     if (is_array($body)) $signUp = $this->signUp($body);
 
@@ -39,11 +44,11 @@ class SignUp extends Pages
         'name'      => $this->request->getAttribute($nameKey),
         'value'     => $this->request->getAttribute($valueKey)
       ],
-      'return'      => $signUp ?? null
+      'signUp'      => $signUp ?? null
     ]);
   }
 
-  private function signUp(array $body)
+  private function signUp(array $body): array | string | null
   {
     try {
       $this->users->name = $body['name'];
@@ -54,7 +59,7 @@ class SignUp extends Pages
       $this->users->password = $body['password'];
       $this->users->type = UserType::from($body['type']);
 
-      $this->users->insert();
+      return $this->users->insert();
     } catch (Exception $e) {
       return $e->getMessage();
     }
