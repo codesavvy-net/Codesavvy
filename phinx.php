@@ -1,5 +1,13 @@
 <?php
 
+use Symfony\Component\Dotenv\Dotenv;
+
+require "vendor/autoload.php";
+
+$dotEnv = new Dotenv();
+
+$dotEnv->load('.env');
+
 return
     [
         'paths' => [
