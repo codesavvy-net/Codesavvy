@@ -12,8 +12,20 @@
 
 <body>
   <div class="header">
-    <p>HEADER - Olá {{name}}</p>
-    <a href="/">INICIO</a> - <a href="/perfil">PERFIL</a> - <a href="/entrar">LOGIN</a>
+    <p>HEADER</p>
+    {% if name %}
+    <p>Olá {{name}} - <a href="/logout">Sair</a></p>
+    {% endif %}
+    <a href="/">INICIO</a>
+
+    {% if name %}
+    - <a href="/perfil">PERFIL</a>
+    {% endif %}
+
+    {% if name==null %}
+    - <a href="/entrar">LOGIN</a>
+    {% endif %}
+
   </div>
   <div class="content">{% block body %}{% endblock %}</div>
   <div class="footer">FOOTER</div>
