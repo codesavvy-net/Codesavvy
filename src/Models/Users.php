@@ -20,7 +20,7 @@ class Users extends Model
    * UUID do usuário
    * @var boolean
    */
-  protected string $status;
+  protected int $status;
 
   /**
    * Nome completo do usuário
@@ -58,8 +58,17 @@ class Users extends Model
    */
   protected string $password;
 
-  protected string $created_at;
-  protected ?string $updated_at;
+  /**
+   * Token temporário
+   * @var string
+   */
+  protected ?string $verify_token;
+
+  /**
+   * Token temporário
+   * @var string
+   */
+  protected ?string $verify_timestamp;
 
   //Provisório deve ser removido, quando começar a construção da pagina
   public function __construct()
@@ -101,6 +110,27 @@ class Users extends Model
       // se a senha estiver incorreta, retorna false
       return false;
     }
+  }
+
+  /**
+   * Reset Password
+   * @return string Link de recuperação
+   */
+  public function resetPassword(): ?string
+  {
+    $res = $this->getColumn('email', $this->email);
+
+    if (!$res) return null;
+
+    $this->verify_token = bin2hex(random_bytes(15));
+    $this->verify_timestamp = date("Y-m-d H:i:s", (time() + $_ENV['ACCOUNT_SECONDS_HASH']));
+
+    if (isset($this->uuid))
+      $this->alterColumn('uuid', $this->uuid);
+
+    if (isset($this->verify_token))
+      return $this->verify_token;
+    return null;
   }
 
   /**
