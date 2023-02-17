@@ -8,6 +8,19 @@ use Users;
 // Classe de conexão
 class Model
 {
+
+   /**
+    * Data da criação
+    * @var string
+    */
+   protected ?string $created_at;
+
+   /**
+    * Data da alteração
+    * @var string
+    */
+   protected ?string $updated_at;
+
    public function __construct(
       private $conn,
       private string $table
@@ -72,37 +85,31 @@ class Model
     * @param $specific string passar o valor especifico que deseja buscar
     * @return ?array
     */
-   protected function alterColumn(string $column, string $value, array $columns): ?array
+   protected function alterColumn(string $column, string $value): bool
    {
       $seters = null;
 
+      $columns = [];
+      foreach (get_object_vars($this) as $key => $item)
+         // Se a propriedade não for 'table' nem 'conn'
+         if (!($key == 'table' || $key == 'conn' || $key == 'created_at' || $key == 'updated_at'))
+            $columns[$key] = $item;
+
       foreach ($columns as $key => $item) {
-         $seters .= "{$key}=':{$key}',";
+         $seters .= "{$key}=:{$key},";
       }
 
       // A string $seters é cortada para remover a última vírgula.
       $seters = substr($seters, 0, -1);
 
       // A variável $altera é preenchida com uma instrução SQL que irá atualizar a tabela self::$table com os valores definidos em $seters e onde a coluna específica (definida por $column) é igual ao valor específico (definido por $value).
-      $altera = $this->conn->prepare("UPDATE " . $this->table . " SET {$seters}  WHERE {$column} = :value");
-
-      // O método bindParam é usado para ligar o valor de $value ao placeholder :value na instrução SQL
-      $altera->bindParam(':value', $value);
-
-      // Outro loop foreach é usado para iterar sobre o array $columns e ligar cada valor ao seu respectivo placeholder na instrução SQL.
-      foreach ($columns as $key => $item) {
-         $altera->bindParam(":{$key}", $item);
-      }
+      $altera = $this->conn->prepare("UPDATE " . $this->table . " SET {$seters}  WHERE {$column} = '{$value}'");
 
       // O método execute é usado para executar a instrução SQL.
-      $altera->execute();
+      $altera->execute($columns);
 
-      // Se encontrar um linha na tabela, retorna um array com os valores
-      if ($altera->rowCount())
-         return $this->getColumn($column, $value);
-
-      // Se não, retorna um valor null
-      return null;
+      // Se encontrar um linha na tabela, retorna um true e inclui valores no Model
+      return $this->getColumn($column, $value);
    }
 
    /**
