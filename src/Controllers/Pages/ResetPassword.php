@@ -5,6 +5,7 @@ namespace Esquadrao21\Squad21\Controllers\Pages;
 use Esquadrao21\Squad21\Models\Enums\UserType;
 use Esquadrao21\Squad21\Models\Users;
 use Esquadrao21\Squad21\Utils\Pages;
+use Esquadrao21\Squad21\Utils\SendMail;
 use Exception;
 use Slim\Psr7\Response;
 
@@ -53,6 +54,17 @@ class ResetPassword extends Pages
       $this->users->email = $body['email'];
 
       $resetPassword = $this->users->resetPassword();
+
+      if (!is_null($resetPassword)) {
+        $sendEmail = new SendMail();
+        $sendEmail->addAddress($this->users->email);
+        $sendEmail->subject("{$_ENV['NAME']} - Olá {$this->users->name} recupere sua conta!");
+        $sendEmail->msgHTML('resetPassword.html', [
+          "name" => $this->users->name,
+          "link" => $_ENV['URL'] . "/recriar_senha?hash={$resetPassword}&email={$this->users->email}"
+        ]);
+        $sendEmail->send();
+      }
 
       return $body['email'];
     } catch (Exception $e) {
