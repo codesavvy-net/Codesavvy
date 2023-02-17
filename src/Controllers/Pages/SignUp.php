@@ -24,8 +24,7 @@ class SignUp extends Pages
     $this->users = new Users();
 
     if (isset($_SESSION['uuid'])) {
-      header("Location: /perfil");
-      exit;
+      return $this->response->withHeader('Location', '/')->withStatus(302);
     }
 
     $body = $this->request->getParsedBody();

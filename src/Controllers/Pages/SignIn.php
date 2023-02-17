@@ -25,8 +25,7 @@ class SignIn extends Pages
     if (is_array($body)) $login = $this->login($body);
 
     if (isset($_SESSION['uuid'])) {
-      header("Location: /perfil");
-      exit;
+      return $this->response->withHeader('Location', '/')->withStatus(302);
     }
 
     return $this->view($login ?? false);
