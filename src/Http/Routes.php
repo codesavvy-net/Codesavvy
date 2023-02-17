@@ -5,6 +5,7 @@ namespace Esquadrao21\Squad21\Routes;
 use Esquadrao21\Squad21\Controllers\Pages\About;
 use Esquadrao21\Squad21\Controllers\Pages\Home;
 use Esquadrao21\Squad21\Controllers\Pages\Logout;
+use Esquadrao21\Squad21\Controllers\Pages\RecreatePassword;
 use Esquadrao21\Squad21\Controllers\Pages\ResetPassword;
 use Esquadrao21\Squad21\Controllers\Pages\SignIn;
 use Esquadrao21\Squad21\Controllers\Pages\SignUp;
@@ -20,3 +21,5 @@ $app->map(['GET', 'POST'], '/registrar[/]', SignUp::class);
 $app->get('/logout[/]', Logout::class);
 
 $app->map(['GET', 'POST'], '/recuperar_senha[/]', ResetPassword::class);
+
+$app->map(['GET', 'POST'], '/recriar_senha[/]', RecreatePassword::class);

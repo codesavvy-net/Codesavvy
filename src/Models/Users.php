@@ -134,6 +134,29 @@ class Users extends Model
   }
 
   /**
+   * Recreate Password
+   * @return string Link de recuperação
+   */
+  public function recreatePassword(string $hash): bool
+  {
+    $res = $this->getColumn('email', $this->email);
+
+    if (!($res
+      && $this->verify_token == $hash
+      && (isset($this->verify_timestamp) && strtotime($this->verify_timestamp) >= time())
+    )) return false;
+    return true;
+  }
+
+  public function change()
+  {
+    $this->verify_timestamp = null;
+    $this->verify_token = null;
+
+    return $this->alterColumn('uuid', $this->uuid);
+  }
+
+  /**
    * Define Username
    * @param string $username
    * @return void

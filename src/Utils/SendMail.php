@@ -60,7 +60,6 @@ class SendMail
 
       $email = explode('#noHtml', $html);
 
-      die($email[0]);
       $this->mail->msgHTML($email[0]);
       $this->mail->AltBody = $email[1];
       return $this;
