@@ -27,8 +27,13 @@ final class Users extends AbstractMigration
             ->addColumn('username', 'string', ['limit' => 25, 'null' => false])
             ->addColumn('email', 'string', ['limit' => 60, 'null' => false])
             ->addColumn('bio', 'text')
-            ->addColumn('type', 'enum', ['values' => ['admin', 'moderator', 'programmer', 'user'], 'default' => 'user'])
-            ->addColumn('password', 'string', ['limit' => 255])
+            ->addColumn('type', 'integer', ['limit' => 1, 'default' => 4])
+            ->addColumn('password', 'string', ['limit' => 255, 'null' => false])
+            ->addColumn('verify_token', 'string', ['limit' => 30])
+            ->addColumn('verify_timestamp', 'timestamp')
+
+            ->addIndex('username', ['unique' => true])
+            ->addIndex('email', ['unique' => true])
 
             ->addTimestamps()->create();
     }
