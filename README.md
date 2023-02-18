@@ -20,7 +20,9 @@ Dependências do Frontend
 Banco de Dados
 - Instale o banco de dados Mysql
 - Crie o banco de dados com o comando:
+```
 CREATE SCHEMA `Squad21` DEFAULT CHARACTER SET utf8mb4;
+```
 - Copie o arquivo .env.example e crie um arquivo com o nome .env alterado os dados internos pelo dados da conexão de seu banco de dados atual
 - Execute a migração através do composer migrate
 
