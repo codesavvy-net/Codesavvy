@@ -18,7 +18,7 @@ $app->map(['GET', 'POST'], '/entrar[/]', SignIn::class);
 
 $app->map(['GET', 'POST'], '/registrar[/]', SignUp::class);
 
-$app->get('/logout[/]', Logout::class);
+$app->get('/desconectar[/]', Logout::class);
 
 $app->map(['GET', 'POST'], '/recuperar_senha[/]', ResetPassword::class);
 

@@ -4,6 +4,7 @@ namespace Esquadrao21\Squad21\Controllers\Pages;
 
 use Esquadrao21\Squad21\Models\Enums\UserType;
 use Esquadrao21\Squad21\Models\Users;
+use Esquadrao21\Squad21\Utils\Captcha;
 use Esquadrao21\Squad21\Utils\Pages;
 use Esquadrao21\Squad21\Utils\SendMail;
 use Exception;
@@ -29,7 +30,12 @@ class ResetPassword extends Pages
     }
 
     $body = $this->request->getParsedBody();
-    if (is_array($body)) $resetPassword = $this->resetPassword($body);
+
+    if (isset($body['g-recaptcha-response']))
+      $captcha = Captcha::verify($body['g-recaptcha-response']);
+
+    if (is_array($body) && isset($captcha) && $captcha)
+      $resetPassword = $this->resetPassword($body);
 
     //Renderiza view
     $csrf = $GLOBALS['csrf'];
@@ -44,7 +50,9 @@ class ResetPassword extends Pages
         'name'      => $this->request->getAttribute($nameKey),
         'value'     => $this->request->getAttribute($valueKey)
       ],
-      'resetPassword'      => $resetPassword ?? NULL
+      'resetPassword'       => $resetPassword ?? NULL,
+      'captcha'             => $captcha ?? NULL,
+      'captcha_public'      => $_ENV['CAPTCHA_PUBLIC']
     ]);
   }
 

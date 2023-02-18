@@ -4,6 +4,7 @@ namespace Esquadrao21\Squad21\Controllers\Pages;
 
 use Esquadrao21\Squad21\Models\Enums\UserType;
 use Esquadrao21\Squad21\Models\Users;
+use Esquadrao21\Squad21\Utils\Captcha;
 use Esquadrao21\Squad21\Utils\Pages;
 use Exception;
 use Slim\Psr7\Response;
@@ -28,7 +29,12 @@ class SignUp extends Pages
     }
 
     $body = $this->request->getParsedBody();
-    if (is_array($body)) $signUp = $this->signUp($body);
+
+    if (isset($body['g-recaptcha-response']))
+      $captcha = Captcha::verify($body['g-recaptcha-response']);
+
+    if (is_array($body) && isset($captcha) && $captcha)
+      $signUp = $this->signUp($body);
 
     //Renderiza view
     $csrf = $GLOBALS['csrf'];
@@ -43,7 +49,9 @@ class SignUp extends Pages
         'name'      => $this->request->getAttribute($nameKey),
         'value'     => $this->request->getAttribute($valueKey)
       ],
-      'signUp'      => $signUp ?? null
+      'signUp'              => $signUp ?? null,
+      'captcha'             => $captcha ?? NULL,
+      'captcha_public'      => $_ENV['CAPTCHA_PUBLIC']
     ]);
   }
 
