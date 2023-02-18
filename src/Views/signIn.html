@@ -8,17 +8,26 @@
 
 {% block body %}
 
+{% if login %}
+<div class="alert alert-warning" role="alert">
+  Usuário ou Senha incorretos!
+</div>
+{% endif %}
+
 <form action="entrar" method="post">
 
-  Login:
-  <input name="login" type="text" /> <br />
-  Senha:
-  <input name="password" type="password" /><br />
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Usuário</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" name="login">
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlInput2" class="form-label">Senha</label>
+    <input type="password" class="form-control" id="exampleFormControlInput2" name="password">
+  </div>
   <input name="{{token.nameKey}}" type="hidden" value="{{token.name}}" />
   <input name="{{token.valueKey}}" type="hidden" value="{{token.value}}" />
-  <input type="submit" value="Login" />
+  <button class="btn btn-primary" type="submit">Entrar</button>
   <a href="/registrar">Registrar-se</a> - <a href="/recuperar_senha">Esqueci minha senha</a>
-  {% if login %}<p>Usuário ou Senha incorretos!</p>{% endif %}
 </form>
 
 {% endblock %}
