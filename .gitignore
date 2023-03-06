@@ -4,3 +4,4 @@ public/node_modules
 vendor
 .env
 .phpunit.*
+PULL_REQUEST_TEMPLATE.md

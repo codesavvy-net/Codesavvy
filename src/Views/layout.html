@@ -5,21 +5,70 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% block head %}
+  {% block header %} {% endblock %}
+  <link rel="stylesheet" href="assets/bootstrap/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="assets/@fortawesome/fontawesome-free/css/all.min.css" />
   <link rel="stylesheet" href="assets/style.css" />
-  {% block title %}{% endblock %}
-  {% endblock %}
 </head>
 
 <body>
-  <div class="header">
-    <p>HEADER - Olá {{name}}</p>
-    <a href="/">INICIO</a> - <a href="/sobre">SOBRE</a>
+
+
+  <header class="p-3 mb-3 border-bottom">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+          <i class="fa-solid fa-font-awesome"></i>
+        </a>
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="/" class="nav-link px-2 link-dark">Inicio</a></li>
+          <li><a href="/" class="nav-link px-2 link-dark">Link 2</a></li>
+          <li><a href="/" class="nav-link px-2 link-dark">Link 3</a></li>
+          {% if name %}
+          <li><a href="/" class="nav-link px-2 link-dark">Link Somente Usuarios logados</a></li>
+          {% endif %}
+        </ul>
+
+        {% if name==null %}
+        <div class="col-md-3 text-end">
+          <a href="/entrar">
+            <button type="button" class="btn btn-outline-primary me-2">Entrar</button>
+          </a>
+
+          <a href="/registrar">
+            <button type="button" class="btn btn-primary">Cadastrar</button>
+          </a>
+        </div>
+        {% endif %}
+
+        {% if name %}
+        <div class="dropdown text-end">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small" style="">
+            <li><a class="dropdown-item" href="/perfil">Perfil</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="/desconectar">Sair</a></li>
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="content">{% block body %}{% endblock %}</div>
   </div>
-  <div class="content">{% block body %}{% endblock %}</div>
+
+  <br /><br /><br />
   <div class="footer">FOOTER</div>
   <script src="assets/@fortawesome/fontawesome-free/js/all.min.js"></script>
+  <script src="assets/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

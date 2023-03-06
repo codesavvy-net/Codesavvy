@@ -6,7 +6,7 @@ use Esquadrao21\Squad21\Models\Users;
 use Esquadrao21\Squad21\Utils\Pages;
 use Slim\Psr7\Response;
 
-class Home extends Pages
+class Profile extends Pages
 {
 
   /**
@@ -16,11 +16,12 @@ class Home extends Pages
   function action(): Response
   {
 
-    //Instância de usuário
-    $users = new Users();
+    if (!isset($_SESSION['uuid'])) {
+      return $this->response->withHeader('Location', '/')->withStatus(302);
+    }
 
     //Renderiza view
-    return $this->view->render($this->response, 'home.html', [
+    return $this->view->render($this->response, 'profile.html', [
 
       //Puxa nome do usuário para View
       'name' => $_SESSION['name'] ?? null

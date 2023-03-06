@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block header %}
+<title>Squad - Registrar</title>
+<meta name="title" content="Squad - Registrar-se">
+<meta name="description" content="Acesso ao Squad21">
+{% endblock %}
+
+{% block body %}
+
+{% if captcha is same as(false) %}
+<div class="alert alert-primary" role="alert">
+  Você é um robô?
+</div>
+{% endif %}
+
+<form action="registrar" method="post">
+
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Nome</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" name="name">
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlInput2" class="form-label">Usuário</label>
+    <input type="text" class="form-control" id="exampleFormControlInput3" name="username">
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlInput3" class="form-label">E-mail</label>
+    <input type="email" class="form-control" id="exampleFormControlInput3" name="email">
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlInput4" class="form-label">Senha</label>
+    <input type="password" class="form-control" id="exampleFormControlInput4" name="password">
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlInput4" class="form-label">Tipo de conta: </label>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="type" id="inlineRadio1" value=4>
+      <label class="form-check-label" for="inlineRadio1">Usuário</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="type" id="inlineRadio2" value=3>
+      <label class="form-check-label" for="inlineRadio2">Programador</label>
+    </div>
+  </div>
+  <div class="h-captcha" data-sitekey="{{captcha_public}}"></div>
+  <input name="{{token.nameKey}}" type="hidden" value="{{token.name}}" />
+  <input name="{{token.valueKey}}" type="hidden" value="{{token.value}}" />
+  <button class="btn btn-primary" type="submit">Registrar</button>
+  <a href="/entrar">Voltar ao Login</a>
+
+  <br /><br />Ao continuar você aceita os Termos e Política de Privacidade
+
+  {% if signUp==1 %}
+  <script>
+    alert('Cadastro com sucesso, faça login');
+    window.location = window.location.href + '/../entrar';
+  </script>
+  {% endif %}
+</form>
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+{% endblock %}
