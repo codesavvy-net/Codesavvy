@@ -23,7 +23,9 @@ class Home extends Pages
     return $this->view->render($this->response, 'home.html', [
 
       //Puxa nome do usuário para View
-      'name' => $_SESSION['name'] ?? null
+      'name'        => $_SESSION['name'] ?? null,
+      'title'       => 'Titulo',
+      'description' => 'Codesavvy é um projeto ...'
     ]);
   }
 }
