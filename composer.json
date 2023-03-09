@@ -21,7 +21,10 @@
         "slim/slim": "^4.11",
         "slim/psr7": "^1.6",
         "slim/twig-view": "^3.3",
-        "symfony/dotenv": "^6.2"
+        "symfony/dotenv": "^6.2",
+        "slim/csrf": "^1.3",
+        "php-di/php-di": "^7.0",
+        "phpmailer/phpmailer": "^6.7"
     },
     "scripts": {
         "tests": "vendor/bin/phpunit --testsuite=tests",

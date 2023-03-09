@@ -15,8 +15,11 @@ class Connection
    public static function connect()
    {
       try {
-         if (empty(self::$conn))
+         if (empty(self::$conn)) {
             self::$conn = new PDO("{$_ENV['DB_ADAPTER']}:host={$_ENV['DB_HOST']};dbname={$_ENV['DB_NAME']}", $_ENV['DB_USER'], $_ENV['DB_PASS']);
+            self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            self::$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+         }
          return self::$conn;
       } catch (PDOException $e) {
          // Caso a conexão de algum erro, exibe uma menssagem de erro

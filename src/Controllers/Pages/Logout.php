@@ -2,28 +2,22 @@
 
 namespace Esquadrao21\Squad21\Controllers\Pages;
 
+use Esquadrao21\Squad21\Models\Enums\UserType;
 use Esquadrao21\Squad21\Models\Users;
 use Esquadrao21\Squad21\Utils\Pages;
+use Exception;
 use Slim\Psr7\Response;
 
-class Home extends Pages
+class Logout extends Pages
 {
-
   /**
    * Retorna o conteúdo de uma view
    * @return Response
    */
   function action(): Response
   {
+    session_destroy();
 
-    //Instância de usuário
-    $users = new Users();
-
-    //Renderiza view
-    return $this->view->render($this->response, 'home.html', [
-
-      //Puxa nome do usuário para View
-      'name' => $_SESSION['name'] ?? null
-    ]);
+    return $this->response->withHeader('Location', '/')->withStatus(302);
   }
 }
