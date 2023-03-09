@@ -1,9 +1,10 @@
 {% extends "layout.html" %}
 
 {% block header %}
-<title>Squad - Entrar</title>
+<title>Codesavvy - Entrar</title>
 <meta name="title" content="Squad - Entrar">
-<meta name="description" content="Acesso ao Squad21">
+<meta name="description" content="Acesso ao Codesavvy">
+<link rel="stylesheet" href="assets/styles/login.css">
 {% endblock %}
 
 {% block body %}
@@ -14,20 +15,55 @@
 </div>
 {% endif %}
 
-<form action="entrar" method="post">
-
-  <div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label">Usuário</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" name="login">
+<div class="container">
+  <div class="blueBg">
+    <div class="box signin">
+      <h2>Já tem uma conta?</h2>
+      <button class="signinBtn">Fazer login</button>
+    </div>
+    <div class="box signup">
+      <h2>Ainda não tem uma conta?</h2>
+      <button class="signupBtn">Se registre</button>
+    </div>
   </div>
-  <div class="mb-3">
-    <label for="exampleFormControlInput2" class="form-label">Senha</label>
-    <input type="password" class="form-control" id="exampleFormControlInput2" name="password">
+  <div class="formBx">
+    <div class="form signinForm">
+      <form action="/entrar" method="post">
+        <h3>Login</h3>
+        <input name="{{token.nameKey}}" type="hidden" value="{{token.name}}" />
+        <input name="{{token.valueKey}}" type="hidden" value="{{token.value}}" />
+        <input type="text" placeholder="Usuário" name="login">
+        <input type="password" placeholder="Senha" name="password">
+        <input type="submit" value="Entrar">
+        <a href="/recuperar_senha" class="forgot">Esqueci a minha senha</a>
+      </form>
+    </div>
+    <div class="form signupForm"></div>
   </div>
-  <input name="{{token.nameKey}}" type="hidden" value="{{token.name}}" />
-  <input name="{{token.valueKey}}" type="hidden" value="{{token.value}}" />
-  <button class="btn btn-primary" type="submit">Entrar</button>
-  <a href="/registrar">Registrar-se</a> - <a href="/recuperar_senha">Esqueci minha senha</a>
-</form>
+</div>
 
+{% if signUp==1 %}
+<script>
+  alert('Cadastro com sucesso, faça login');
+  window.location = window.location.href + '/../entrar';
+</script>
+{% endif %}
+<script>
+  const signinBtn = document.querySelector('.signinBtn');
+  const signupBtn = document.querySelector('.signupBtn');
+  const formBx = document.querySelector('.formBx');
+  const body = document.querySelector('body')
+
+  signupBtn.onclick = function () {
+    formBx.classList.add('active')
+    body.classList.add('active')
+    setTimeout(() => {
+      window.location.href = "registrar";
+    }, 500);
+  }
+  signinBtn.onclick = function () {
+    formBx.classList.remove('active')
+    body.classList.remove('active')
+  }
+</script>
 {% endblock %}
