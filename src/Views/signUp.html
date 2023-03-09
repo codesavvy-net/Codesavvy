@@ -1,9 +1,10 @@
 {% extends "layout.html" %}
 
 {% block header %}
-<title>Squad - Registrar</title>
-<meta name="title" content="Squad - Registrar-se">
-<meta name="description" content="Acesso ao Squad21">
+<title>Codesavvy - Registrar</title>
+<meta name="title" content="Codesavvy - Registrar-se">
+<meta name="description" content="Acesso ao Codesavvy">
+<link rel="stylesheet" href="assets/styles/login.css">
 {% endblock %}
 
 {% block body %}
@@ -14,49 +15,70 @@
 </div>
 {% endif %}
 
-<form action="registrar" method="post">
-
-  <div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label">Nome</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" name="name">
-  </div>
-  <div class="mb-3">
-    <label for="exampleFormControlInput2" class="form-label">Usuário</label>
-    <input type="text" class="form-control" id="exampleFormControlInput3" name="username">
-  </div>
-  <div class="mb-3">
-    <label for="exampleFormControlInput3" class="form-label">E-mail</label>
-    <input type="email" class="form-control" id="exampleFormControlInput3" name="email">
-  </div>
-  <div class="mb-3">
-    <label for="exampleFormControlInput4" class="form-label">Senha</label>
-    <input type="password" class="form-control" id="exampleFormControlInput4" name="password">
-  </div>
-  <div class="mb-3">
-    <label for="exampleFormControlInput4" class="form-label">Tipo de conta: </label>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="type" id="inlineRadio1" value=4>
-      <label class="form-check-label" for="inlineRadio1">Usuário</label>
+<div class="container">
+  <div class="blueBg">
+    <div class="box signin">
+      <h2>Já tem uma conta?</h2>
+      <button class="signinBtn">Fazer login</button>
     </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="type" id="inlineRadio2" value=3>
-      <label class="form-check-label" for="inlineRadio2">Programador</label>
+    <div class="box signup">
+      <h2>Ainda não tem uma conta?</h2>
+      <button class="signupBtn">Se registre</button>
     </div>
   </div>
-  <div class="h-captcha" data-sitekey="{{captcha_public}}"></div>
-  <input name="{{token.nameKey}}" type="hidden" value="{{token.name}}" />
-  <input name="{{token.valueKey}}" type="hidden" value="{{token.value}}" />
-  <button class="btn btn-primary" type="submit">Registrar</button>
-  <a href="/entrar">Voltar ao Login</a>
+  <div class="formBx">
+    <div class="form signinForm"></div>
 
-  <br /><br />Ao continuar você aceita os Termos e Política de Privacidade
+    <div class="form signupForm">
+      <form action="/registrar" method="post">
+        <h3>Registrar</h3>
+        <input type="text" placeholder="Nome" name="name">
+        <input type="text" placeholder="Usuário" name="username">
+        <input type="email" placeholder="Email" name="email">
+        <input type="password" placeholder="Senha" name="password">
 
-  {% if signUp==1 %}
-  <script>
-    alert('Cadastro com sucesso, faça login');
-    window.location = window.location.href + '/../entrar';
-  </script>
-  {% endif %}
-</form>
+        <label for="exampleFormControlInput4" class="form-label">Tipo de conta: </label>
+        <div class="radio-list">
+          <div class="radio">
+            <label class="form-check-label" for="inlineRadio1">Usuário</label>
+            <input class="form-check-input" type="radio" name="type" id="inlineRadio1" value=4>
+          </div>
+          <div class="radio">
+            <label class="form-check-label" for="inlineRadio2">Programador</label>
+            <input class="form-check-input" type="radio" name="type" id="inlineRadio2" value=3>
+          </div>
+        </div>
+        <div class="h-captcha" data-sitekey="{{captcha_public}}"></div>
+        <input name="{{token.nameKey}}" type="hidden" value="{{token.name}}" />
+        <input name="{{token.valueKey}}" type="hidden" value="{{token.value}}" />
+        <input type="submit" value="Registrar {{captcha_public}}">
+      </form>
+    </div>
+  </div>
+</div>
+
+{% if signUp==1 %}
+<script>
+  alert('Cadastro com sucesso, faça login');
+  window.location = window.location.href + '/../entrar';
+</script>
+{% endif %}
+<script>
+  const signinBtn = document.querySelector('.signinBtn');
+  const signupBtn = document.querySelector('.signupBtn');
+  const formBx = document.querySelector('.formBx');
+  const body = document.querySelector('body')
+
+  formBx.classList.add('active')
+  body.classList.add('active')
+
+  signinBtn.onclick = function () {
+    formBx.classList.remove('active')
+    body.classList.remove('active')
+    setTimeout(() => {
+      window.location.href = "entrar";
+    }, 400);
+  }
+</script>
 <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 {% endblock %}
