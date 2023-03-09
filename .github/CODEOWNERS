@@ -1,9 +1,9 @@
-*.js @brunogcsousa @BrunoRaphael2002 @HexMagnus
-*.htm* @brunogcsousa @BrunoRaphael2002 @HexMagnus
-*.css @brunogcsousa @BrunoRaphael2002 @HexMagnus
-package.json @brunogcsousa @BrunoRaphael2002 @HexMagnus
+*.js @brunogcsousa @BrunoRaphael2002
+*.htm* @brunogcsousa @BrunoRaphael2002
+*.css @brunogcsousa @BrunoRaphael2002
+package.json @brunogcsousa @BrunoRaphael2002
 
-*.php @nicolahsss @MatheusBrandao525
-composer.json @nicolahsss @MatheusBrandao525
+*.php @nicolahsss @MatheusBrandao525 @Lucas2630
+composer.json @nicolahsss @MatheusBrandao525 @Lucas2630
 
-.github @BrunoRaphael2002 @HexMagnus @MatheusBrandao525 @nicolahsss
+.github @BrunoRaphael2002 @MatheusBrandao525 @nicolahsss
